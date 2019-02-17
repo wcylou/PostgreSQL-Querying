@@ -31,6 +31,12 @@ $ mvn spring-boot:run
 
 [![asciicast](https://asciinema.org/a/ombJeRFxCwT215n528uHVVWXU.svg)](https://asciinema.org/a/ombJeRFxCwT215n528uHVVWXU)
 
+### Design choices
+
+- Spring Data JPA was used to query the database including 'SQLResultSetMapping' for the more complex queryies and results.
+- Transaction DAO updated fields when 'matching' and 'unmatching'.
+- All endpoints are contained within the 'MerchantController' and 'TransactionController'.
+
 ### License
 This program is licensed under the MIT license.
 Copyright (c) 2019 Wilson Lou.
