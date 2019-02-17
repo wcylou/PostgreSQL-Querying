@@ -1,0 +1,33 @@
+package com.flux;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import com.flux.models.Merchants;
+import com.flux.repositories.MerchantRepository;
+
+@SpringBootApplication
+public class FluxDbApplication {
+	
+	static final Logger LOGGER = LoggerFactory.getLogger(FluxDbApplication.class);
+
+	public static void main(String[] args) {
+		SpringApplication.run(FluxDbApplication.class, args);
+	}
+	
+	@Bean
+	public CommandLineRunner test(MerchantRepository repository) {
+		return (args) -> {
+			LOGGER.info("Merchants found");
+			Merchants merchant = repository.findByName("EAT.");
+		};
+	}
+
+}
+

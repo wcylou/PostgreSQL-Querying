@@ -1,0 +1,6 @@
+package com.flux.services;
+
+
+public interface TransactionService  {
+
+}

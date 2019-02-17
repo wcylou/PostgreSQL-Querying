@@ -1,0 +1,44 @@
+package com.flux.data;
+
+import java.util.UUID;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.flux.repositories.TransactionsRepository;
+
+@Transactional
+@Component
+public class TransactionDAOImpl implements TransactionDAO {
+	
+	static final Logger LOGGER = LoggerFactory.getLogger(TransactionDAOImpl.class);
+	
+	@PersistenceContext
+	private EntityManager em;
+
+	@Autowired
+	TransactionsRepository transRepository;
+	
+	@Override
+	public void match(UUID id1, UUID, id2) {
+		List<Transactions> transactions = transRepository.findAll();
+		LOGGER.info(transactions.toString());
+		for (Transactions transaction: transactions) {
+			if (!transaction.getCandidates().isEmpty()) {
+				LOGGER.info("Transaction ID {}", transaction.getId().toString());
+				Pattern p = Pattern.compile("\"([^\"]*)\"");
+				Matcher m = p.matcher(transaction.getCandidates());
+				while(m.find()){
+					  LOGGER.info(m.group(1));      
+				}
+			}
+		}
+	}
+
+}

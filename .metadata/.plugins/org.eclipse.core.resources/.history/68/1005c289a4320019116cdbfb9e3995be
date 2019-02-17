@@ -1,0 +1,11 @@
+package com.flux.data;
+
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Component;
+
+@Transactional
+@Component
+public class TransactionDAO implements TransactionDAOImpl {
+
+}

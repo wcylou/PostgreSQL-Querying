@@ -1,0 +1,35 @@
+package com.flux.repositories;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.flux.models.Merchants;
+import com.flux.models.Stats;
+
+@Repository
+public interface MerchantRepository extends JpaRepository<Merchants, Integer> {
+	Merchants findByName(String name);
+
+	Merchants findById(UUID id);
+
+	@Query(" SELECT m.id, m.name, l.name from Merchants m \n" + " JOIN Locations l \n"
+			+ " ON m.id = l.merchantId WHERE m.name= :name")
+	Merchants findByMerchantNameInclLocation(@Param("name") String name);
+
+	@Query(value=" SELECT t.state, \n" + " COUNT(*), \n"
+			+ " sum(case when t.state='MATCHED' then 1 else 0 end) as matched , \n"
+			+ " sum(case when t.state='UNMATCHED' then 1 else 0 end) as unmatched \n" + " from Transactions t \n"
+			+ " group by t.state", nativeQuery = true)
+	List<Stats> getMapOfState();
+	
+//	@Query("SELECT t.id, t.amount FROM Transactions t WHERE t.state=\"UNMATCHED\\")
+//	
+//	
+//	@Quer("SELECT t.id, t.state, t.candidates FROM Transactions t WHERE t.id= :id")
+
+}

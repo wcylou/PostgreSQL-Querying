@@ -1,0 +1,25 @@
+1550087205419	Extract local variable 'findByName'
+1550088456019	Move compilation unit
+1550333148109	Extract local variable 'merchant'
+1550333254446	Extract local variable 'merchant'
+1550402179382	Rename type 'TransactionDAO'
+1550402186286	Rename type 'TransactionDAOImpl'
+1550402191232	Rename type 'TransactionDAOIm'
+1550402431238	Extract local variable 'resultList'
+1550404225104	Infer generic type arguments
+1550404229775	Infer generic type arguments
+1550404515148	Copy compilation unit
+1550404536570	Rename type 'TransactionDAOImpl'
+1550404543282	Delete element
+1550411994722	Rename package 'com.flux.services'
+1550412005057	Rename type 'TransactionService'
+1550412054721	Rename type 'TransactionServiceImpl'
+1550413641906	Extract local variable 'transcations'
+1550418031475	Delete element
+1550419408769	Extract local variable 'transcation'
+1550420556718	Extract local variable 'matchingTransaction1'
+1550422617185	Rename type 'TransactionRepository'
+1550423601816	Extract method 'findMatchingTransaction'
+1550431137631	Copy compilation unit
+1550431159394	Rename type 'MerchantRepository'
+1550437800294	Delete element

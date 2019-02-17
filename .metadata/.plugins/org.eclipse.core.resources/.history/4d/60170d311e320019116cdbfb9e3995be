@@ -1,0 +1,10 @@
+package com.flux.models;
+
+public interface Stats {
+
+	private String state;
+	private int total;
+	private int matchedCount;
+	private int unmatchedcount;
+
+}

@@ -1,0 +1,51 @@
+package com.flux.controllers;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.flux.models.Merchants;
+import com.flux.models.Stats;
+import com.flux.repositories.MerchantRepository;
+
+@RequestMapping("api/")
+@RestController
+public class MerchantController {
+	
+	static final Logger LOGGER = LoggerFactory.getLogger(MerchantController.class);
+	
+	@Autowired
+	MerchantRepository merchantRepository;
+	
+	@RequestMapping(path = "merchants?name={name}", method = RequestMethod.GET)
+	public Merchants getMerchantByName(@PathVariable String name) {
+		Merchants merchant = merchantRepository.findByMerchantNameInclLocation(name);
+		LOGGER.info("Merchant {} found: {}", name, merchant);
+		return merchant;
+	}
+	
+	@RequestMapping(path = "merchants/{id}", method = RequestMethod.GET)
+	public Merchants getMerchantById(@PathVariable UUID id) {
+		Merchants merchant = merchantRepository.findById(id);
+		LOGGER.info("Merchant id {} found: {}", id, merchant);
+		return merchant;
+	}
+	
+	@RequestMapping(path = "transactions/stats", method = RequestMethod.GET)
+	public List<Stats> getTransactionStats() {
+		List<Stats> stats = merchantRepository.getMapOfState();
+		for (Stats stat: stats) {
+			LOGGER.info(stat.toString());
+		}
+ 		return stats;
+	}
+	
+
+}

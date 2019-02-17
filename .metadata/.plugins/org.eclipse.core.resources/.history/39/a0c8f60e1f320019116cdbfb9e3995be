@@ -1,0 +1,12 @@
+package com.flux.models;
+
+import java.io.Serializable;
+
+public interface Stats extends Serializable {
+
+	public String state();
+	public int total();
+	public int matchedCount();
+	public int unmatchedcount();
+
+}

@@ -1,0 +1,5 @@
+
+spring.datasource.url=jdbc:postgresql://d:5432/manual-match-test-master_database_1
+spring.datasource.username=sandbox
+spring.datasource.password=sandbox
+spring.jpa.generate-ddl=true

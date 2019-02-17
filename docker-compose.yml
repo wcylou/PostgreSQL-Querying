@@ -1,0 +1,13 @@
+version: '3'
+services:
+  database:
+    build:
+      dockerfile: Dockerfile
+      context: ./
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=sandbox
+      - POSTGRES_PASSWORD=sandbox
+    volumes:
+      - ./db/:/docker-entrypoint-initdb.d/

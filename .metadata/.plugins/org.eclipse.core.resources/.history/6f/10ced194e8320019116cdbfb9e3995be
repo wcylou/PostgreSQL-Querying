@@ -1,0 +1,8 @@
+package com.flux.models;
+
+public class MerchantsDetailed {
+	
+	MerchantsDetailed(){}
+	
+
+}

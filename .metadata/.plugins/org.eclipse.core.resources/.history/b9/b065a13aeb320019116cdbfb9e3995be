@@ -1,0 +1,51 @@
+package com.flux.controllers;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.flux.data.TransactionDAOImpl;
+import com.flux.models.Transactions;
+import com.flux.repositories.TransactionsRepository;
+
+@RequestMapping("api/")
+@RestController
+public class TransactionController {
+
+	static final Logger LOGGER = LoggerFactory.getLogger(TransactionController.class);
+	
+	@Autowired
+	TransactionDAOImpl transactionDAO;
+	
+	@Autowired
+	TransactionsRepository transactionsRepo;
+	
+	@RequestMapping(path = "transactions/{id}", method = RequestMethod.GET)
+	public List<Transactions> getTransactionListOfSpecificState(@PathVariable UUID id) {
+		List<Transactions> transactions = transactionsRepo.getTransactionById(id);
+		for (Transactions transaction : transactions) {
+			LOGGER.info("Transactionn ID: {}", transaction.getId());
+			LOGGER.info("Transactionn State: {}", transaction.getId());
+			LOGGER.info("Transaction candidate: {}", transaction.getCandidates());
+		}
+		return transactions;
+	}
+
+	@RequestMapping(path = "match", method = RequestMethod.POST)
+	public void match(@RequestParam("id") UUID id, @RequestParam("id2") UUID id2) {
+		transactionDAO.match(id, id2);
+	}
+	
+	@RequestMapping(path = "unmatch", method = RequestMethod.POST)
+	public void unmatch(@RequestParam("id") UUID id, @RequestParam("id2") UUID id2) {
+		transactionDAO.unmatch(id, id2);
+	}
+}

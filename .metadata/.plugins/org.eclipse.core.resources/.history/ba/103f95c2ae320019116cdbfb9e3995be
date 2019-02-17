@@ -1,0 +1,28 @@
+package com.flux.repositories;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.flux.models.Merchants;
+import com.flux.models.Transactions;
+
+@Repository
+public interface MerchantRepository extends JpaRepository<Merchants, Integer> {
+	Merchants findByName(String name);
+
+	@Query(" SELECT m.id, m.name, l.name from Merchants m \n" + " JOIN Locations l \n"
+			+ " ON m.id = l.merchantId WHERE m.name= :name")
+	Merchants findByMerchantNameInclLocation(@Param("name") String name);
+
+	
+	@Query("SELECT t.id, t.state, t.amount FROM Transactions t WHERE t.state= :state")
+	List<Transactions> getTransactionInState(@Param("state") String state);
+//	
+//	
+//	@Quer("SELECT t.id, t.state, t.candidates FROM Transactions t WHERE t.id= :id")
+
+}

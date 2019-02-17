@@ -1,0 +1,38 @@
+package com.flux.models;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name = "merchants")
+public class Merchants {
+	
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@NotNull
+	private int id;
+	
+	private String name;
+	
+	@Column(name = "logo_url")
+	@Size(max=255)
+	private String logoUrl;
+	
+	@Size(max=50)
+	private String state;
+	
+	@Column(name = "created_date")
+	private Date createdDate;
+	
+	@Column(name = "updated_date")
+	private Date updatedDate;
+
+}

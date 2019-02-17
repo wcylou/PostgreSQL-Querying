@@ -1,0 +1,36 @@
+package com.flux.data;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.flux.models.Stats;
+
+@Transactional
+@Component
+public class TransactionDAOImpl implements TransactionDAO {
+	
+	@PersistenceContext
+	private EntityManager em;
+	
+	@Autowired
+	private TransactionDAO tDao;
+	
+	@Override
+	public void transactionStats() {
+		List<Object> countResults = em.createNativeQuery("SELECT t.state, \n" + " COUNT(*), \n"
+				+ " sum(case when t.state='MATCHED' then 1 else 0 end) as matched , \n"
+				+ " sum(case when t.state='UNMATCHED' then 1 else 0 end) as unmatched \n" + " from Transactions t \n"
+				+ " group by t.state").getResultList();
+		
+		countResults.stream().forEach((transaction) -> {
+			Stats stat = (Stats)transaction;
+			System.out.println(stat);
+		});
+	}
+}

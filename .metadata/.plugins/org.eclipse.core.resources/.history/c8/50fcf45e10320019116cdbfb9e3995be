@@ -1,0 +1,70 @@
+package com.flux.models;
+
+import java.util.Date;
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+public class Transactions {
+	
+	@Id
+	@NotNull
+	private UUID id;
+	
+    @ManyToOne
+    @JoinColumn(name = "merchants_id")
+	private Merchants merchantId;
+
+    @ManyToOne
+    @JoinColumn(name = "locations_id")
+	private Merchants locationId;
+
+	@Size(max = 10)
+	private String cardScheme;
+	
+	@Size(max = 6)
+	private String bin;
+	
+	@Size(max = 4)
+	@Column(name="last_four")
+	private String lastFour;
+	
+	@NotNull
+	@Size(max =10)
+	private String provider;
+	
+	@NotNull
+	@Size(max =20)
+	private String source;
+	
+	@NotNull
+	private int amount;
+	
+	@Column(name = "transaction_date")
+	@NotNull
+	private Date transactionDate;
+	
+	@NotNull
+	@Size(max = 50)
+	private String state;
+	
+	@Column(name = "created_date")
+	@NotNull
+	private Date createdDate;
+	
+	@Column(name = "updated_date")
+	@NotNull
+	private Date updatedDate;
+	
+	@Column(name="merchant_name")
+	private String merchantName;
+
+}
+
+
+}

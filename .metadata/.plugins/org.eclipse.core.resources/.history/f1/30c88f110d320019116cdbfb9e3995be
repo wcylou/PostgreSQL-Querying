@@ -1,0 +1,98 @@
+package com.flux.models;
+
+import java.util.Date;
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+public class Merchants {
+
+	@Id
+	@NotNull
+	private UUID id;
+
+	private String name;
+
+	@Column(name = "logo_url")
+	@Size(max = 255)
+	private String logoUrl;
+
+	@Size(max = 50)
+	private String state;
+
+	@Column(name = "created_date")
+	private Date createdDate;
+
+	@Column(name = "updated_date")
+	private Date updatedDate;
+
+	protected Merchants() {
+	}
+
+	public Merchants(String name, @Size(max = 255) String logoUrl, @Size(max = 50) String state, Date createdDate,
+			Date updatedDate) {
+		super();
+		this.name = name;
+		this.logoUrl = logoUrl;
+		this.state = state;
+		this.createdDate = createdDate;
+		this.updatedDate = updatedDate;
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Merchants [id=" + id + ", name=" + name + ", logoUrl=" + logoUrl + ", state=" + state + ", createdDate="
+				+ createdDate + ", updatedDate=" + updatedDate + "]";
+	}
+
+}

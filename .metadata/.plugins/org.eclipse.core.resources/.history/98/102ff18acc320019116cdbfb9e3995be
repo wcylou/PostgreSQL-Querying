@@ -1,0 +1,357 @@
+package com.flux.models;
+
+import java.util.Date;
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonRawValue;
+
+@Entity
+public class Transactions {
+	
+	@Id
+	@NotNull
+	private UUID id;
+	
+    @ManyToOne
+    @JoinColumn(name = "merchants_id")
+	private Merchants merchantId;
+
+    @ManyToOne
+    @JoinColumn(name = "locations_id")
+	private Locations locationId;
+
+	@Size(max = 10)
+	private String cardScheme;
+	
+	@Size(max = 6)
+	private String bin;
+	
+	@Size(max = 4)
+	@Column(name="last_four")
+	private String lastFour;
+	
+	@NotNull
+	@Size(max =10)
+	private String provider;
+	
+	@NotNull
+	@Size(max =20)
+	private String source;
+	
+	@NotNull
+	private int amount;
+	
+	@Column(name = "transaction_date")
+	@NotNull
+	private Date transactionDate;
+	
+	@NotNull
+	@Size(max = 50)
+	private String state;
+	
+	@Column(name = "created_date")
+	@NotNull
+	private Date createdDate;
+	
+	@Column(name = "updated_date")
+	@NotNull
+	private Date updatedDate;
+	
+	@Column(name="merchant_name")
+	private String merchantName;
+	
+	@JsonRawValue
+	private String candidates;
+	
+	@Column(name = "matched_with")
+	private UUID matchedWith;
+
+	public UUID getId() {
+		return id;
+	}
+
+	public Merchants getMerchantId() {
+		return merchantId;
+	}
+
+	public void setMerchantId(Merchants merchantId) {
+		this.merchantId = merchantId;
+	}
+
+	public Locations getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(Locations locationId) {
+		this.locationId = locationId;
+	}
+
+	public String getCardScheme() {
+		return cardScheme;
+	}
+
+	public void setCardScheme(String cardScheme) {
+		this.cardScheme = cardScheme;
+	}
+
+	public String getBin() {
+		return bin;
+	}
+
+	public void setBin(String bin) {
+		this.bin = bin;
+	}
+
+	public String getLastFour() {
+		return lastFour;
+	}
+
+	public void setLastFour(String lastFour) {
+		this.lastFour = lastFour;
+	}
+
+	public String getProvider() {
+		return provider;
+	}
+
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public Date getTransactionDate() {
+		return transactionDate;
+	}
+
+	public void setTransactionDate(Date transactionDate) {
+		this.transactionDate = transactionDate;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public String getMerchantName() {
+		return merchantName;
+	}
+
+	public void setMerchantName(String merchantName) {
+		this.merchantName = merchantName;
+	}
+
+	public String getCandidates() {
+		return candidates;
+	}
+
+	public void setCandidates(String candidates) {
+		this.candidates = candidates;
+	}
+
+	public UUID getMatchedWith() {
+		return matchedWith;
+	}
+
+	public void setMatchedWith(UUID matchedWith) {
+		this.matchedWith = matchedWith;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + amount;
+		result = prime * result + ((bin == null) ? 0 : bin.hashCode());
+		result = prime * result + ((candidates == null) ? 0 : candidates.hashCode());
+		result = prime * result + ((cardScheme == null) ? 0 : cardScheme.hashCode());
+		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((lastFour == null) ? 0 : lastFour.hashCode());
+		result = prime * result + ((locationId == null) ? 0 : locationId.hashCode());
+		result = prime * result + ((matchedWith == null) ? 0 : matchedWith.hashCode());
+		result = prime * result + ((merchantId == null) ? 0 : merchantId.hashCode());
+		result = prime * result + ((merchantName == null) ? 0 : merchantName.hashCode());
+		result = prime * result + ((provider == null) ? 0 : provider.hashCode());
+		result = prime * result + ((source == null) ? 0 : source.hashCode());
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((transactionDate == null) ? 0 : transactionDate.hashCode());
+		result = prime * result + ((updatedDate == null) ? 0 : updatedDate.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Transactions other = (Transactions) obj;
+		if (amount != other.amount)
+			return false;
+		if (bin == null) {
+			if (other.bin != null)
+				return false;
+		} else if (!bin.equals(other.bin))
+			return false;
+		if (candidates == null) {
+			if (other.candidates != null)
+				return false;
+		} else if (!candidates.equals(other.candidates))
+			return false;
+		if (cardScheme == null) {
+			if (other.cardScheme != null)
+				return false;
+		} else if (!cardScheme.equals(other.cardScheme))
+			return false;
+		if (createdDate == null) {
+			if (other.createdDate != null)
+				return false;
+		} else if (!createdDate.equals(other.createdDate))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (lastFour == null) {
+			if (other.lastFour != null)
+				return false;
+		} else if (!lastFour.equals(other.lastFour))
+			return false;
+		if (locationId == null) {
+			if (other.locationId != null)
+				return false;
+		} else if (!locationId.equals(other.locationId))
+			return false;
+		if (matchedWith == null) {
+			if (other.matchedWith != null)
+				return false;
+		} else if (!matchedWith.equals(other.matchedWith))
+			return false;
+		if (merchantId == null) {
+			if (other.merchantId != null)
+				return false;
+		} else if (!merchantId.equals(other.merchantId))
+			return false;
+		if (merchantName == null) {
+			if (other.merchantName != null)
+				return false;
+		} else if (!merchantName.equals(other.merchantName))
+			return false;
+		if (provider == null) {
+			if (other.provider != null)
+				return false;
+		} else if (!provider.equals(other.provider))
+			return false;
+		if (source == null) {
+			if (other.source != null)
+				return false;
+		} else if (!source.equals(other.source))
+			return false;
+		if (state == null) {
+			if (other.state != null)
+				return false;
+		} else if (!state.equals(other.state))
+			return false;
+		if (transactionDate == null) {
+			if (other.transactionDate != null)
+				return false;
+		} else if (!transactionDate.equals(other.transactionDate))
+			return false;
+		if (updatedDate == null) {
+			if (other.updatedDate != null)
+				return false;
+		} else if (!updatedDate.equals(other.updatedDate))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Transactions [id=");
+		builder.append(id);
+		builder.append(", merchantId=");
+		builder.append(merchantId);
+		builder.append(", locationId=");
+		builder.append(locationId);
+		builder.append(", cardScheme=");
+		builder.append(cardScheme);
+		builder.append(", bin=");
+		builder.append(bin);
+		builder.append(", lastFour=");
+		builder.append(lastFour);
+		builder.append(", provider=");
+		builder.append(provider);
+		builder.append(", source=");
+		builder.append(source);
+		builder.append(", amount=");
+		builder.append(amount);
+		builder.append(", transactionDate=");
+		builder.append(transactionDate);
+		builder.append(", state=");
+		builder.append(state);
+		builder.append(", createdDate=");
+		builder.append(createdDate);
+		builder.append(", updatedDate=");
+		builder.append(updatedDate);
+		builder.append(", merchantName=");
+		builder.append(merchantName);
+		builder.append(", candidates=");
+		builder.append(candidates);
+		builder.append(", matchedWith=");
+		builder.append(matchedWith);
+		builder.append("]");
+		return builder.toString();
+	}
+	
+	
+
+}
+
+
+

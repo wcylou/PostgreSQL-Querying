@@ -1,0 +1,15 @@
+package com.flux.repositories;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.flux.models.Merchants;
+
+@Repository
+public interface MerchantRepository extends JpaRepository<Merchants, Integer> {
+	List<Merchants> findByName(String name);
+	List<Merchants> findById(int id);
+
+}

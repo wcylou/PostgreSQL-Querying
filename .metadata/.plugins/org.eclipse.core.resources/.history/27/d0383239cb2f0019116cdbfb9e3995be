@@ -1,0 +1,36 @@
+package com.flux;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.flux.models.Merchants;
+import com.flux.repositories.MerchantRepository;
+
+@SpringBootApplication
+public class FluxDbApplication implements CommandLineRunner {
+	
+	static final Logger LOGGER = LoggerFactory.getLogger(FluxDbApplication.class);
+	
+	@Autowired
+	MerchantRepository merchantRepository;
+
+	public static void main(String[] args) {
+		SpringApplication.run(FluxDbApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		LOGGER.info("Merchants found");
+		Merchants merchantId = merchantRepository.findById("92e50938-1aec-4ca7-995d-dc79ae0428fb");
+		LOGGER.info(merchantId.getState());
+		Merchants merchant = merchantRepository.findByName("EAT.");
+		LOGGER.info(merchant.getName());
+	}
+	
+
+}
+

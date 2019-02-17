@@ -1,0 +1,7 @@
+package com.flux.data;
+
+public interface TransactionDAO {
+
+	void match();
+
+}

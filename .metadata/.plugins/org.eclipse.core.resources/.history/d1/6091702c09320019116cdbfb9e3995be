@@ -1,0 +1,38 @@
+package com.flux.models;
+
+import java.util.Date;
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name = "locations")
+public class Locations {
+	
+	@Id
+	@NotNull
+	private UUID id;
+	
+	@Column(name="merchant_id")
+	private UUID merchantId;
+
+	private String name;
+
+	@Size(max = 255)
+	private double latitude;
+
+	@Size(max = 50)
+	private double longitude;
+
+	@Column(name = "created_date")
+	private Date createdDate;
+
+	@Column(name = "updated_date")
+	private Date updatedDate;
+
+}

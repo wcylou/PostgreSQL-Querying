@@ -1,0 +1,12 @@
+package com.flux.models;
+
+import javax.persistence.Entity;
+
+public interface Stats {
+	
+	 String state();
+	 int total();
+	 int matchedCount();
+	 int unmatchedcount();
+
+}

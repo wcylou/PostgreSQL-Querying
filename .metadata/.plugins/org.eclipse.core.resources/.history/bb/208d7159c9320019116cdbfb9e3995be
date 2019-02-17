@@ -1,0 +1,20 @@
+package com.flux.repositories;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.flux.models.Transactions;
+
+@Repository
+public interface TransactionsRepository extends JpaRepository<Transactions, Integer> {
+	
+	List<Transactions> findAll();
+	
+	@Query("SELECT t.id, t.state, t.candidates FROM Transactions t WHERE t.id= :id")	
+	List<Transactions> getTransactionById(@Param("id") UUID id);
+
+}

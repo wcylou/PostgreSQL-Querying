@@ -1,0 +1,97 @@
+package com.flux.models;
+
+import java.util.Date;
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name = "locations")
+public class Locations {
+	
+	@Id
+	@NotNull
+	private UUID id;
+	
+	@Column(name="merchant_id")
+	private UUID merchantId;
+
+	@NotNull
+	private String name;
+
+	@NotNull
+	private double latitude;
+
+	@NotNull
+	private double longitude;
+
+	@Column(name = "created_date")
+	@NotNull
+	private Date createdDate;
+
+	@Column(name = "updated_date")
+	@NotNull
+	private Date updatedDate;
+	
+	public Locations() {}
+
+	public UUID getId() {
+		return id;
+	}
+
+	public UUID getMerchantId() {
+		return merchantId;
+	}
+
+	public void setMerchantId(UUID merchantId) {
+		this.merchantId = merchantId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+	
+	
+
+}

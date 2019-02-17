@@ -1,0 +1,56 @@
+package com.flux.data;
+
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.flux.models.Transactions;
+import com.flux.repositories.TransactionsRepository;
+
+@Transactional
+@Component
+public class TransactionDAOImpl implements TransactionDAO {
+
+	static final Logger LOGGER = LoggerFactory.getLogger(TransactionDAOImpl.class);
+
+	@PersistenceContext
+	private EntityManager em;
+
+	@Autowired
+	TransactionsRepository transRepository;
+
+	@Override
+	public void match(UUID id1, UUID id2) {
+
+		Transactions transactionToMatch = em.find(Transactions.class, id1);
+		boolean candidateFound = false;
+		if (!transactionToMatch.getCandidates().isEmpty()) {
+			Pattern p = Pattern.compile("\"([^\"]*)\"");
+			Matcher m = p.matcher(transactionToMatch.getCandidates());
+			while (m.find()) {
+				LOGGER.info("Candidate {}", m.group(1));
+				LOGGER.info("Transaction to match {}", id2.toString());
+				if (m.group(1).toString().equals(id2.toString())) {
+					LOGGER.info("Found matching candidate {}", id2);
+					candidateFound = true;
+				}
+			}
+		}
+
+		if (candidateFound) {
+			transRepository.matchOrUnmatchTransaction("MATCHED", id2, id1);
+			transRepository.matchOrUnmatchTransaction("MATCHED", id1, id2);
+			LOGGER.info("Transaction {} successfully matched with {}", id1, id2);
+		}
+	}
+
+}

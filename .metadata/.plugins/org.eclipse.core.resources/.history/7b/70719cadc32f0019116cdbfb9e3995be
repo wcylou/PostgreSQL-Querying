@@ -1,0 +1,5 @@
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/sandbox
+spring.datasource.username=sandbox
+spring.datasource.password=sandbox
+spring.jpa.generate-ddl=true

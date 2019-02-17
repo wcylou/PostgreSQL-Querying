@@ -1,0 +1,11 @@
+package com.flux.data;
+
+import java.util.List;
+
+import com.flux.models.Stats;
+
+public interface TransactionDAO {
+
+	List<Stats> transactionStats();
+
+}

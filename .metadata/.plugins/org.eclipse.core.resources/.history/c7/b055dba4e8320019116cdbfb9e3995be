@@ -1,0 +1,14 @@
+package com.flux.models;
+
+import java.util.UUID;
+
+public class MerchantsDetailed {
+	
+	private UUID id;
+	private String name;
+	private String locationName;
+	
+	MerchantsDetailed(){}
+	
+
+}

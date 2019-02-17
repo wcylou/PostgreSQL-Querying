@@ -1,0 +1,5 @@
+package com.flux.data;
+
+public interface TransactionDAO {
+
+}

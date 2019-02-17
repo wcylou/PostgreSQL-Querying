@@ -1,0 +1,52 @@
+package com.flux.models;
+
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
+import javax.persistence.SqlResultSetMapping;
+
+@SqlResultSetMapping(
+	    name="Stats",
+	    classes={
+	      @ConstructorResult(
+	        targetClass=com.flux.models.Stats.class,
+	        columns={
+	          @ColumnResult(name="state", type=String.class),
+	          @ColumnResult(name="total", type=Integer.class),
+	          @ColumnResult(name="dayOfWeek")})})
+public class Stats {
+	
+	private String state;
+	private int total;
+	private int matchedCount;
+	private int unmatchedcount;
+	
+	Stats(){}
+	
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	public int getMatchedCount() {
+		return matchedCount;
+	}
+	public void setMatchedCount(int matchedCount) {
+		this.matchedCount = matchedCount;
+	}
+	public int getUnmatchedcount() {
+		return unmatchedcount;
+	}
+	public void setUnmatchedcount(int unmatchedcount) {
+		this.unmatchedcount = unmatchedcount;
+	}
+	
+	
+
+}

@@ -1,0 +1,79 @@
+package com.flux.controllers;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.flux.data.TransactionDAOImpl;
+import com.flux.models.Stats;
+import com.flux.models.Transactions;
+import com.flux.repositories.TransactionStatsRepository;
+import com.flux.repositories.TransactionsRepository;
+
+@RequestMapping("api/")
+@RestController
+public class TransactionController {
+
+	static final Logger LOGGER = LoggerFactory.getLogger(TransactionController.class);
+	
+	@Autowired
+	TransactionDAOImpl transactionDAO;
+	
+	@Autowired
+	TransactionsRepository transactionsRepository;
+
+	@Autowired
+	TransactionStatsRepository transactionRepository;
+	
+
+	@RequestMapping(path = "transactions/stats", method = RequestMethod.GET)
+	public List<Stats> getTransactionStats() {
+		List<Stats> stats = transactionRepository.transactionStats();
+		LOGGER.info("Fetching count of transactions in said state");
+		for (Stats stat : stats) {
+			LOGGER.info("Matched Count: {}", String.valueOf(stat.getMatchedCount()));
+			LOGGER.info("Unmatched Count: {}", String.valueOf(stat.getUnmatchedcount()));
+		}
+		return stats;
+	}
+
+	@RequestMapping(path = "transactions/state={state}", method = RequestMethod.GET)
+	public List<Transactions> getTransactionListOfSpecificState(@PathVariable String state) {
+		List<Transactions> transactions = transactionsRepository.getTransactionInState(state);
+		LOGGER.info("Fetching list of transactions in {} state", state);
+		for (Transactions transcation : transactions) {
+			LOGGER.info("Transactionn ID: {}", transcation.getId());
+			LOGGER.info("Transaction state: {}", transcation.getState());
+		}
+		return transactions;
+	}
+	
+	@RequestMapping(path = "transactions/{id}", method = RequestMethod.GET)
+	public List<Transactions> getTransactionListOfSpecificState(@PathVariable UUID id) {
+		List<Transactions> transactions = transactionsRepository.getTransactionById(id);
+		for (Transactions transaction : transactions) {
+			LOGGER.info("Transaction ID: {}", transaction.getId());
+			LOGGER.info("Transaction State: {}", transaction.getState());
+			LOGGER.info("Transaction candidate: {}", transaction.getCandidates());
+		}
+		return transactions;
+	}
+
+	@RequestMapping(path = "match", method = RequestMethod.POST)
+	public void match(@RequestParam("id") UUID id, @RequestParam("id2") UUID id2) {
+		transactionDAO.match(id, id2);
+	}
+	
+	@RequestMapping(path = "unmatch", method = RequestMethod.POST)
+	public void unmatch(@RequestParam("id") UUID id, @RequestParam("id2") UUID id2) {
+		transactionDAO.unmatch(id, id2);
+	}
+}
